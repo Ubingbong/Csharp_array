@@ -19,6 +19,9 @@ namespace Csharp_array
         }
         static int GetAverageScore(int[] scores)
         {
+            if (scores.Length == 0)
+                return 0;
+
             int avg = 0;
             foreach (int score in scores)
             {
@@ -41,7 +44,23 @@ namespace Csharp_array
         }
         static void Sort(int[] scores)
         {
+            for (int i = 0; i < scores.Length; i++)
+            {
+                // i~scores.Lenght-1 에서 제일 작은 숫자가 있는 인덱스를 찾는다.
+                int minIndex = i;
 
+                for (int j = minIndex; j < scores.Length; j++)
+                {
+                    if (scores[minIndex] > scores[j])
+                    {
+                        minIndex = j;
+                    }
+                }
+                // swap
+                int tmp = scores[i];
+                scores[i] = scores[minIndex];
+                scores[minIndex] = tmp;
+            }
         }
         static void Main(string[] args)
         {
@@ -53,8 +72,8 @@ namespace Csharp_array
             int averageScore = GetAverageScore(scores);
             Console.WriteLine(averageScore);
 
-            int indexOfValue = GetIndexOf(scores, 20);
-            Console.WriteLine(indexOfValue);
+            int index = GetIndexOf(scores, 20);
+            Console.WriteLine(index);
 
             Sort(scores);
         }
